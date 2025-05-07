@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulier</title>
+    <title>Ontwerpformulier</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -28,6 +28,13 @@
             overflow-y: auto;
         }
 
+        .form-title {
+            font-size: 26px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -39,7 +46,13 @@
             margin-bottom: 8px;
         }
 
-        select, textarea {
+        .form-description {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        select, textarea, input[type="text"], input[type="url"] {
             width: 100%;
             padding: 10px;
             border: none;
@@ -106,6 +119,41 @@
             max-height: 200px;
         }
 
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .section-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            margin: 25px 0;
+        }
+
+        .submit-button {
+            background-color: white;
+            color: #e94667;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #f0f0f0;
+        }
+
         @media (max-height: 800px) {
             .form-container {
                 padding: 15px;
@@ -128,6 +176,43 @@
 </head>
 <body>
 <div class="form-container">
+    <div class="form-title">Formulier - DeOnlineVormgever.nl</div>
+
+    <!-- Type ontwerp -->
+    <div class="form-group">
+        <label class="form-label">Type ontwerp</label>
+        <select id="type-ontwerp" required>
+            <option value="">Selecteer type ontwerp</option>
+            <option value="flyer">Flyer</option>
+            <option value="folder">Folder</option>
+            <option value="menukaart">Menukaart</option>
+            <option value="visitekaartje">Visitekaartje</option>
+            <option value="poster">Poster</option>
+            <option value="brochure">Brochure</option>
+            <option value="banner">Banner</option>
+            <option value="social-media">Social media afbeelding</option>
+            <option value="logo">Logo</option>
+            <option value="briefpapier">Briefpapier</option>
+            <option value="envelope">Envelop</option>
+            <option value="advertentie">Advertentie</option>
+            <option value="overig">Overig</option>
+        </select>
+    </div>
+
+    <!-- Doel van het ontwerp -->
+    <div class="form-group">
+        <label class="form-label">Doel van het ontwerp</label>
+        <div class="form-description">Beschrijf waarvoor het ontwerp gebruikt zal worden</div>
+        <textarea id="doel-ontwerp" rows="3" required></textarea>
+    </div>
+
+    <!-- Doelgroep -->
+    <div class="form-group">
+        <label class="form-label">Doelgroep</label>
+        <div class="form-description">Beschrijf voor wie het ontwerp bedoeld is (leeftijd, interesse, etc.)</div>
+        <textarea id="doelgroep" rows="3" required></textarea>
+    </div>
+
     <!-- Branche -->
     <div class="form-group">
         <label class="form-label">Branche</label>
@@ -147,6 +232,13 @@
         </select>
     </div>
 
+    <!-- URL van de klant -->
+    <div class="form-group">
+        <label class="form-label">URL van de klant</label>
+        <div class="form-description">Website URL voor tone-of-voice en stijl</div>
+        <input type="url" id="website-url" placeholder="https://www.voorbeeld.nl">
+    </div>
+
     <!-- Stijl -->
     <div class="form-group">
         <label class="form-label">Stijl</label>
@@ -161,23 +253,51 @@
         </select>
     </div>
 
+    <!-- Teksten -->
     <div class="form-group">
-        <label class="form-label">Bestanden uploaden</label>
+        <label class="form-label">Teksten voor het ontwerp</label>
+        <div class="form-description">Voer hier de teksten in die in het ontwerp gebruikt moeten worden</div>
+        <textarea id="teksten" rows="5" required></textarea>
+        <div class="checkbox-group">
+            <input type="checkbox" id="ai-aanvulling">
+            <label for="ai-aanvulling">Ik geef toestemming voor aanvulling door AI indien nodig</label>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Bestanden uploaden -->
+    <div class="form-group">
+        <label class="form-label">Logo's uploaden</label>
         <div class="file-upload">
             <div class="file-upload-row">
-                <input type="file" id="bestand" class="file-input">
-                <label for="bestand" class="file-label">Bestand kiezen</label>
-                <span class="file-name" id="bestand-naam">Geen bestand gekozen</span>
+                <input type="file" id="logo-bestand" class="file-input" accept=".jpg,.jpeg,.png,.svg,.ai,.eps,.pdf">
+                <label for="logo-bestand" class="file-label">Bestand kiezen</label>
+                <span class="file-name" id="logo-naam">Geen bestand gekozen</span>
             </div>
         </div>
         <div class="max-file-size">(Maximale grootte bestand 50 MB)</div>
     </div>
 
+    <!-- Brandbook uploaden -->
     <div class="form-group">
-        <label class="form-label">Eventueel voorbeeld bestanden</label>
+        <label class="form-label">Brandbook uploaden</label>
         <div class="file-upload">
             <div class="file-upload-row">
-                <input type="file" id="voorbeeld-bestand" class="file-input" multiple>
+                <input type="file" id="brandbook" class="file-input" accept=".pdf">
+                <label for="brandbook" class="file-label">Bestand kiezen</label>
+                <span class="file-name" id="brandbook-naam">Geen bestand gekozen</span>
+            </div>
+        </div>
+        <div class="max-file-size">(Maximale grootte bestand 50 MB)</div>
+    </div>
+
+    <!-- Voorbeeldmateriaal -->
+    <div class="form-group">
+        <label class="form-label">Voorbeeldmateriaal uploaden</label>
+        <div class="file-upload">
+            <div class="file-upload-row">
+                <input type="file" id="voorbeeld-bestand" class="file-input" multiple accept=".jpg,.jpeg,.png,.pdf">
                 <label for="voorbeeld-bestand" class="file-label">Bestand kiezen</label>
                 <span class="file-name" id="voorbeeld-naam">Geen bestand gekozen</span>
             </div>
@@ -203,10 +323,44 @@
         </select>
     </div>
 
+    <!-- Extra informatie -->
     <div class="form-group">
         <label class="form-label">Extra informatie</label>
         <textarea id="extra-info" rows="4"></textarea>
     </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="submit-button">Versturen</button>
 </div>
+
+<script>
+    // Bestandsnaam weergeven bij upload
+    document.getElementById('logo-bestand').addEventListener('change', function() {
+        updateFileName('logo-bestand', 'logo-naam');
+    });
+
+    document.getElementById('brandbook').addEventListener('change', function() {
+        updateFileName('brandbook', 'brandbook-naam');
+    });
+
+    document.getElementById('voorbeeld-bestand').addEventListener('change', function() {
+        updateFileName('voorbeeld-bestand', 'voorbeeld-naam', true);
+    });
+
+    function updateFileName(inputId, labelId, isMultiple = false) {
+        const input = document.getElementById(inputId);
+        const label = document.getElementById(labelId);
+
+        if (input.files.length > 0) {
+            if (isMultiple && input.files.length > 1) {
+                label.textContent = input.files.length + ' bestanden geselecteerd';
+            } else {
+                label.textContent = input.files[0].name;
+            }
+        } else {
+            label.textContent = 'Geen bestand gekozen';
+        }
+    }
+</script>
 </body>
 </html>
